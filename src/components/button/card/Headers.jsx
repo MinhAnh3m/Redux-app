@@ -3,11 +3,22 @@ import { IoIosNotifications } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { BsFillBagHeartFill } from "react-icons/bs";
+import { addToCart } from "./cartReducer";
 
 const Headers = () => {
   const [isOpenN, setIsOpenN] = useState(false);
   const [isOpenC, setIsOpenC] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => {
+    return state.items === undefined ? [] : [];
+  });
+
+
 
   const handleLogOut = () => {
     navigate("/");
@@ -22,7 +33,26 @@ const Headers = () => {
     setIsOpenN(false);
   };
   return (
-    <div className="fixed -top-3 w-full bg-red-200	 pt-6 lg:pt-8 flex items-center justify-end gap-4 pb-4 text-slate-200 font-semibold text-sm leading-6 dark:text-slate-900 px-20">
+    <div className="fixed top-0 w-full bg-red-200 py-6 lg:py-8 flex items-center justify-end gap-4 pb-4 text-slate-200 font-semibold text-sm leading-6 dark:text-slate-900 px-20">
+      <div className="relative cursor-pointer" onclick={() => dispatch(addToCart)}>
+        <BsFillBagHeartFill size={25} />
+        <div className="absolute -top-2 w-6 h-6 -right-3 bg-white text-black rounded-full text-center">
+          {cartItems !== undefined &&
+            cartItems.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-4 p-3 text-sm hover:bg-slate-200 "
+              >
+                <img
+                  className="w-14 h-14 rounded-full"
+                  alt=""
+                  src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/429948755_1052045432548989_2760582603953845443_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHKGttAiYJiEFUnlrPozQ7MxWZ4-CNWiCLFZnj4I1aIImVJNLlv3BHoDzqKOif3b8j1ydHZyvL3woTqIMzdMvho&_nc_ohc=dgNzxZXMXYsAX_Pw9G9&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCJwz53k3GS6vxA7u9eF-38Xv_BE7DjSx9Ns3vr7GUdHw&oe=6606DBCD"
+                />
+              </div>
+            ))}
+        </div>
+      </div>
+
       <div className="relative cursor-pointer" onClick={handleOpenNotification}>
         <IoIosNotifications size={30} />
         <div className="absolute -top-2 w-6 h-6 -right-3 bg-white text-black rounded-full text-center">
