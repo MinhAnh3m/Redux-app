@@ -18,7 +18,10 @@ const Headers = () => {
     return state.items === undefined ? [] : [];
   });
 
-
+   const handleCartIconClick = () => {
+     dispatch(addToCart({ id: 1, name: "Product 1" }));
+     
+   };
 
   const handleLogOut = () => {
     navigate("/");
@@ -34,7 +37,7 @@ const Headers = () => {
   };
   return (
     <div className="fixed top-0 w-full bg-red-200 py-6 lg:py-8 flex items-center justify-end gap-4 pb-4 text-slate-200 font-semibold text-sm leading-6 dark:text-slate-900 px-20">
-      <div className="relative cursor-pointer" onclick={() => dispatch(addToCart)}>
+      <div className="relative cursor-pointer" onclick={handleCartIconClick}>
         <BsFillBagHeartFill size={25} />
         <div className="absolute -top-2 w-6 h-6 -right-3 bg-white text-black rounded-full text-center">
           {cartItems !== undefined &&

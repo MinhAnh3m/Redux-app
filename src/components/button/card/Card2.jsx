@@ -8,7 +8,7 @@ const Card2 = (props) => {
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch({ type: "ADD_TO_CART", payload: data });
+    dispatch({ type: "Add_To_Cart", payload: data });
   };
 
   return (
